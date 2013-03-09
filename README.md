@@ -1,7 +1,7 @@
 JoiStyk
 =======
 
-*View a demo of [JoiStyk](http://projects.jaysonpotter.com)!*
+*View a demo of [JoiStyk](http://projects.jaysonpotter.com/JoiStyk/)!*
 
 Saturday March 9, 2013 : 
 This is a working prototype of an HTML5 canvas joystick with some key features. 
