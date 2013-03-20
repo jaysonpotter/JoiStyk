@@ -3,6 +3,18 @@ JoiStyk
 
 *View a demo of [JoiStyk](http://projects.jaysonpotter.com/JoiStyk/)!*
 
+Tuesday March 19, 2013
+* JoiStyk demo goes full viewport!!
+* cleaned up variable order
+* made function names instead of var functions
+* general prepping to separate JoyStyk into its own namespace
+* need to create utility functions out of the general use functions
+	* canvas high DPI scaling 
+	* minimalist touch detection
+	* getting position of pointer/touch
+	* requestAnimationFrame too
+* drawings could be their own thang as well
+
 Sunday March 10, 2013 : 
 * did a BIT of JSLinting
 * changed the follow behavior, now follows the user 1:1 instead of a lag (seemed like a cool idea, but defeated the purpose to the advantage of the joystick following the user)
