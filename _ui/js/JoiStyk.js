@@ -266,23 +266,19 @@ window.onload = function () {
 	//END Shapes
 
 	function Hearty(){
-		// Checks if there are positions available
-		if(JoiStyk.x && JoiStyk.y){
 	    	
-	    	// This is just to show something move around based on the xy coords of the joystick
-			heartProps.xSpeed = JoiStyk.x;
-			heartProps.ySpeed = JoiStyk.y;
-			
-			heartProps.x += (heartProps.xSpeed / 2.8);
-	    	heartProps.y += (heartProps.ySpeed / 2.8);
-	    	
-	    	// messy gross presuptuous, needs to work better with high density, is moving across double the canvas so this needs some iffys
-	    	if(heartProps.x < -50) heartProps.x = baseWidth;
-			if(heartProps.y < -50) heartProps.y = baseHeight;
-			if(heartProps.x > baseWidth) heartProps.x = -50;
-			if(heartProps.y > baseHeight) heartProps.y = -50;
-				
-		}
+    	// This is just to show something move around based on the xy coords of the joystick
+		heartProps.xSpeed = JoiStyk.x;
+		heartProps.ySpeed = JoiStyk.y;
+		
+		heartProps.x += (heartProps.xSpeed / 2.8);
+    	heartProps.y += (heartProps.ySpeed / 2.8);
+    	
+    	// messy gross presuptuous, needs to work better with high density, is moving across double the canvas so this needs some iffys
+    	if(heartProps.x < -50) heartProps.x = baseWidth;
+		if(heartProps.y < -50) heartProps.y = baseHeight;
+		if(heartProps.x > baseWidth) heartProps.x = -50;
+		if(heartProps.y > baseHeight) heartProps.y = -50;
 		
 		drawHeart(heartProps.x, heartProps.y);
 	}
