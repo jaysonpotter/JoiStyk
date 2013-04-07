@@ -3,7 +3,7 @@ JoiStyk
 
 *View a demo of [JoiStyk](http://projects.jaysonpotter.com/JoiStyk/)!*
 
-Sunday April 6, 2013
+Sunday April 7, 2013
 * Namespaced this badboy in a self-executing anonymous function. I think it's working out pretty well and makes it easy to extend.
 	* JoiStyk.x = Access X position
 	* JoiStyk.y = Access Y position
