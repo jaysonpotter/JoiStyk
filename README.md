@@ -3,6 +3,13 @@ JoiStyk
 
 *View a demo of [JoiStyk](http://projects.jaysonpotter.com/JoiStyk/)!*
 
+Sunday April 6, 2013
+* Namespaced this badboy in a self-executing anonymous function. I think it's working out pretty well and makes it easy to extend.
+	* JoiStyk.x = Access X position
+	* JoiStyk.y = Access Y position
+	* JoiStyk.draw = Place in your draw() function to see JoiStyk go!
+* Added some more comments and goals
+
 Tuesday March 19, 2013
 * JoiStyk demo goes full viewport!!
 * cleaned up variable order
