@@ -100,8 +100,8 @@ window.onload = function () {
         heartProps.xSpeed = JoiStyk.x;
         heartProps.ySpeed = JoiStyk.y;
         
-        heartProps.x += Math.round((heartProps.xSpeed / 2.8));
-        heartProps.y += Math.round((heartProps.ySpeed / 2.8));
+        heartProps.x += Math.round((heartProps.xSpeed / 2));
+        heartProps.y += Math.round((heartProps.ySpeed / 2));
         
         // messy gross presuptuous
         if(heartProps.x < -50) heartProps.x = baseWidth;
@@ -135,5 +135,6 @@ window.onload = function () {
     
     if(canvas && ctx) { 
         animate();
+        JoiStyk.play(canvas, 99); // this is how to play with JoiStyk
     }
 }

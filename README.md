@@ -3,6 +3,11 @@ JoiStyk
 
 *View a demo of [JoiStyk](http://projects.jaysonpotter.com/JoiStyk/)!*
 
+Tuesday April 9, 2013
+* WHOAMG
+    * pass in your canvas var name to JoiStyk
+    * pass in a number to customize the JoyStyk bigness
+
 Sunday April 7, 2013
 * Namespaced this badboy in a self-executing anonymous function. I think it's working out pretty well and makes it easy to extend.
 	* JoiStyk.x = Access X position

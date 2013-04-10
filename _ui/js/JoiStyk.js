@@ -1,7 +1,6 @@
 (function(JoiStyk) {
     'use strict';
 
-    // Add support for canvas parameter
     // Add support for dual joysticks
     // Add support for custom image and/or color
     // Add support for stationary joystick vs the amazing dynamic fantasticaliciousness it is today
@@ -18,8 +17,8 @@
         padPos,
         stickPos,
         trackPos,
-        padRad = 80,
-        stickRad = 40,
+        padRad,
+        stickRad,
 
         canvas,
         ctx;
@@ -116,9 +115,13 @@
         return (stickPos.y - padPos.y);
     }
 
-    JoiStyk.play = function() {
-
-        canvas = document.getElementById('JoiStyk');
+    JoiStyk.play = function(yoCanvas, bigness) {
+        
+        // padRads awesomeness formula just makes sure that the number we work with is an even one, otherwise the output ends up having a .5
+        padRad = (bigness - (bigness % 2)) || 60;
+        stickRad = (padRad / 2);
+        
+        canvas = yoCanvas || undefined;
         ctx = canvas.getContext('2d');
 
         // START Events
@@ -143,7 +146,7 @@
 
     JoiStyk.draw = function() {
         // Checks if there are positions available for the pad and stick
-        if (padPos && stickPos && trackPos){
+        if (padPos && stickPos && trackPos) {
 
             trackTouch();
             stickBounds();
@@ -152,20 +155,13 @@
             drawJSStick();
             //feedback();
 
+            // FYI "this" means JoiStyk, not JoiStyk.draw.bla, get me?
             this.x = outputX();
             this.y = outputY();
         } else {
             this.x = 0;
             this.y = 0;
         }
-    }
-
-    // event listener to be called on page load y'all
-    if (window.addEventListener) {
-        window.addEventListener('load', JoiStyk.play, false);
-    } else if (window.attachEvent) {
-        // deprecated since IE9, but still checking
-        window.attachEvent('onload', JoyStyk.play);
     }
 
 }(window.JoiStyk = window.JoiStyk || {}));
