@@ -2,6 +2,7 @@
     'use strict';
 
     // Add support for dual joysticks
+    // Fix when dual fingers are on stage
     // Add support for custom image and/or color
     // Add support for stationary joystick vs the amazing dynamic fantasticaliciousness it is today
 
@@ -115,7 +116,7 @@
         return (stickPos.y - padPos.y);
     }
 
-    JoiStyk.play = function(yoCanvas, bigness) {
+    JoiStyk.play = function (yoCanvas, bigness) {
         
         // padRads awesomeness formula just makes sure that the number we work with is an even one, otherwise the output ends up having a .5
         padRad = (bigness - (bigness % 2)) || 60;
@@ -141,10 +142,10 @@
             padPos = null;
         }, false);
         // END Events
-
     }
 
-    JoiStyk.draw = function() {
+    JoiStyk.draw = function () {
+    
         // Checks if there are positions available for the pad and stick
         if (padPos && stickPos && trackPos) {
 
@@ -153,14 +154,12 @@
 
             drawJSPad();
             drawJSStick();
-            //feedback();
-
-            // FYI "this" means JoiStyk, not JoiStyk.draw.bla, get me?
-            this.x = outputX();
-            this.y = outputY();
+            
+            JoiStyk.x = outputX();
+            JoiStyk.y = outputY();
         } else {
-            this.x = 0;
-            this.y = 0;
+            JoiStyk.x = 0;
+            JoiStyk.y = 0;
         }
     }
 
