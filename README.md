@@ -54,6 +54,18 @@ window.onload = function () {
         ctx.fillText("Y: " + JoiStyk.y, 5, 110);
     }
     
+    // requestAnim shim layer by Paul Irish <- Crafty devil
+    window.requestAnimFrame = (function(){
+        return window.requestAnimationFrame       || 
+               window.webkitRequestAnimationFrame || 
+               window.mozRequestAnimationFrame    || 
+               window.oRequestAnimationFrame      || 
+               window.msRequestAnimationFrame     || 
+               function(callback, element){
+                   window.setTimeout(callback, 1000 / 60);
+               };
+    }()); // <-- tucked in the, as Crockford says it, dog balls
+    
     function drawHeart(x, y) {
         ctx.beginPath();
         ctx.moveTo(x + 40.0, y + 10.0);
