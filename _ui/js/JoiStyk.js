@@ -92,22 +92,6 @@
         }
     }
 
-    function stickBounds() {
-        // This is keeping the stick from leaving the pad area, needs to be updated to stay fixed within the radius instead of a square
-        if (stickPos.x < (padPos.x - stickRad)) {
-            stickPos.x = (padPos.x - stickRad);
-        }
-        if (stickPos.x > (padPos.x + stickRad)) {
-            stickPos.x = (padPos.x + stickRad);
-        }
-        if (stickPos.y < (padPos.y - stickRad)) {
-            stickPos.y = (padPos.y - stickRad);
-        }
-        if (stickPos.y > (padPos.y + stickRad)) {
-            stickPos.y = (padPos.y + stickRad);
-        }
-    }
-
     function outputX() {
         return (stickPos.x - padPos.x);
     }
@@ -117,11 +101,11 @@
     }
 
     JoiStyk.play = function (yoCanvas, bigness) {
-        
+
         // padRads awesomeness formula just makes sure that the number we work with is an even one, otherwise the output ends up having a .5
         padRad = (bigness - (bigness % 2)) || 60;
         stickRad = (padRad / 2);
-        
+
         canvas = yoCanvas || undefined;
         ctx = canvas.getContext('2d');
 
@@ -145,16 +129,15 @@
     }
 
     JoiStyk.draw = function () {
-    
+
         // Checks if there are positions available for the pad and stick
         if (padPos && stickPos && trackPos) {
 
             trackTouch();
-            stickBounds();
 
             drawJSPad();
             drawJSStick();
-            
+
             JoiStyk.x = outputX();
             JoiStyk.y = outputY();
         } else {
