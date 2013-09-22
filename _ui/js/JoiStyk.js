@@ -17,7 +17,6 @@
 
         padPos,
         stickPos,
-        trackPos,
         padRad,
         stickRad,
 
@@ -71,22 +70,18 @@
         ctx.fill();
     }
 
-    function trackTouch() {
-        if ((trackPos.x - stickRad) < (padPos.x - padRad)) {
-            padPos.x = (trackPos.x + stickRad);
-            stickPos.x = trackPos.x;
+    function trackTouch() { // rename this to something that makes sense like JoiPad
+        if ((stickPos.x - stickRad) < (padPos.x - padRad)) {
+            padPos.x = (stickPos.x + stickRad);
         }
-        if ((trackPos.x + stickRad) > (padPos.x + padRad)) {
-            padPos.x = (trackPos.x - stickRad);
-            stickPos.x = trackPos.x;
+        if ((stickPos.x + stickRad) > (padPos.x + padRad)) {
+            padPos.x = (stickPos.x - stickRad);
         }
-        if ((trackPos.y - stickRad) < (padPos.y - padRad)) {
-            padPos.y = (trackPos.y + stickRad);
-            stickPos.y = trackPos.y;
+        if ((stickPos.y - stickRad) < (padPos.y - padRad)) {
+            padPos.y = (stickPos.y + stickRad);
         }
-        if ((trackPos.y + stickRad) > (padPos.y + padRad)) {
-            padPos.y = (trackPos.y - stickRad);
-            stickPos.y = trackPos.y;
+        if ((stickPos.y + stickRad) > (padPos.y + padRad)) {
+            padPos.y = (stickPos.y - stickRad);
         }
     }
     
@@ -99,13 +94,11 @@
         if (isFirstTouch || !touchable){
             padPos = getPosition(canvas, evt);
             stickPos = getPosition(canvas, evt);
-            trackPos = getPosition(canvas, evt);
         }
     }
     
     function JoiStykMove(evt) {
         stickPos = getPosition(canvas, evt);
-        trackPos = getPosition(canvas, evt);
     }
     
     function JoiStykEnd(evt) {
@@ -128,7 +121,7 @@
     
     JoiStyk.debug = {
         showOptions: function(){
-            return options;
+            return option;
         }
     }
 
@@ -146,7 +139,7 @@
 
     JoiStyk.draw = function () {
 
-        if (padPos && stickPos && trackPos) {
+        if (padPos && stickPos) {
             trackTouch();
             drawJSPad();
             drawJSStick();
