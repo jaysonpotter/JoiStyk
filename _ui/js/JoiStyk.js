@@ -2,19 +2,19 @@
     'use strict';
 
     // Add support for dual joysticks
-    // Fix when dual fingers are on stage
-    // Add support for custom image and/or color
+    // Add support for custom image
     // Add support for stationary joystick vs the amazing dynamic fantasticaliciousness it is today
 
-    // All the touchy and interactive
     var touchable = typeof (document.ontouchend) !== "undefined",
+        touches = [],
+        touchChange = [],
+        isFirstTouch,
         tap,
         tapEnd,
         tapMove,
         tapLeave,
         tapCancel,
 
-    // Stores the info about the JoiStyk drawing elements, perhaps padRad and stickRad need to be params for JoiStyk
         padPos,
         stickPos,
         trackPos,
@@ -22,9 +22,10 @@
         stickRad,
 
         canvas,
-        ctx;
+        ctx,
+        
+        option = option || {};
 
-    // this sets the listener names, kind of an experiment in mouseVStouch and leaner than a trycatch
     if (touchable) {
         tap = 'touchstart';
         tapEnd = 'touchend';
@@ -36,9 +37,7 @@
         tapEnd = 'mouseup';
         tapMove = 'mousemove';
     }
-    // END Touch
 
-    // Gets the position of the mouse or single finger
     function getPosition(canvas, evt) {
         evt.preventDefault();
         var rect = canvas.getBoundingClientRect();
@@ -60,7 +59,7 @@
         ctx.beginPath();
         ctx.arc(padPos.x, padPos.y, padRad, 0, 2 * Math.PI, false);
         ctx.closePath();
-        ctx.fillStyle = 'rgb(203, 48, 48)';
+        ctx.fillStyle = option.padcolor || 'rgb(31, 31, 31)';
         ctx.fill();
     }
 
@@ -68,12 +67,11 @@
         ctx.beginPath();
         ctx.arc(stickPos.x, stickPos.y, stickRad, 0, 2 * Math.PI, false);
         ctx.closePath();
-        ctx.fillStyle = 'rgb(241, 241, 241)';
+        ctx.fillStyle = option.stickcolor || 'rgb(241, 241, 241)';
         ctx.fill();
     }
 
     function trackTouch() {
-        // This moves the pad around with the user, it also updates the stick position
         if ((trackPos.x - stickRad) < (padPos.x - padRad)) {
             padPos.x = (trackPos.x + stickRad);
             stickPos.x = trackPos.x;
@@ -91,6 +89,34 @@
             stickPos.y = trackPos.y;
         }
     }
+    
+    function JoiStykStart(evt) {
+        if(touchable){
+            touches = evt.touches;
+            touchChange = evt.changedTouches;
+            isFirstTouch = (touches[0].identifier === touchChange[0].identifier);
+        }
+        if (isFirstTouch || !touchable){
+            padPos = getPosition(canvas, evt);
+            stickPos = getPosition(canvas, evt);
+            trackPos = getPosition(canvas, evt);
+        }
+    }
+    
+    function JoiStykMove(evt) {
+        stickPos = getPosition(canvas, evt);
+        trackPos = getPosition(canvas, evt);
+    }
+    
+    function JoiStykEnd(evt) {
+        if(touchable){
+            touches = evt.touches;
+        }
+        if (touches.length === 0 || !touchable){
+            stickPos = null;
+            padPos = null;
+        }
+    }
 
     function outputX() {
         return (stickPos.x - padPos.x);
@@ -99,42 +125,29 @@
     function outputY() {
         return (stickPos.y - padPos.y);
     }
+    
+    JoiStyk.debug = {
+        showOptions: function(){
+            return options;
+        }
+    }
 
-    JoiStyk.play = function (yoCanvas, bigness) {
-
-        // padRads awesomeness formula just makes sure that the number we work with is an even one, otherwise the output ends up having a .5
-        padRad = (bigness - (bigness % 2)) || 60;
+    JoiStyk.play = function (options) {
+        option = options;
+        padRad = (option.padsize - (option.padsize % 2)) || 60;
         stickRad = (padRad / 2);
-
-        canvas = yoCanvas || undefined;
+        canvas = option.canvas;
         ctx = canvas.getContext('2d');
 
-        // START Events
-        canvas.addEventListener(tapMove, function(evt) {
-            stickPos = getPosition(canvas, evt);
-            trackPos = getPosition(canvas, evt);
-        }, false);
-
-        canvas.addEventListener(tap, function(evt) {
-            padPos = getPosition(canvas, evt);
-            stickPos = getPosition(canvas, evt);
-            trackPos = getPosition(canvas, evt);
-        }, false);
-
-        canvas.addEventListener(tapEnd, function(evt) {
-            stickPos = null;
-            padPos = null;
-        }, false);
-        // END Events
+        canvas.addEventListener(tapMove, JoiStykMove, false);
+        canvas.addEventListener(tap, JoiStykStart, false);
+        canvas.addEventListener(tapEnd, JoiStykEnd, false);
     }
 
     JoiStyk.draw = function () {
 
-        // Checks if there are positions available for the pad and stick
         if (padPos && stickPos && trackPos) {
-
             trackTouch();
-
             drawJSPad();
             drawJSStick();
 

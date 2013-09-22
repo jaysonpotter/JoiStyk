@@ -6,7 +6,9 @@ window.onload = function () {
     // START DEMO CONTENT
     var heartProps = {} || heartProps;
         heartProps.x = 135;
-        heartProps.y = 0;
+        heartProps.y = 100;
+        heartProps.w = 50;
+        heartProps.h = 50;
     var feedback = function (){
         ctx.font = 'normal 10px Courier';
         ctx.fillStyle = 'rgb(203, 48, 48)';
@@ -53,17 +55,22 @@ window.onload = function () {
         heartProps.y += Math.round((heartProps.ySpeed / 2));
         
         // messy gross, it's a demo Mkkkrrr
-        if(heartProps.x < -50) heartProps.x = canvas.width;
-        if(heartProps.y < -50) heartProps.y = canvas.height;
-        if(heartProps.x > canvas.width) heartProps.x = -50;
-        if(heartProps.y > canvas.height) heartProps.y = -50;
+        if(heartProps.x < 0) heartProps.x = 0;
+        if(heartProps.y < 0) heartProps.y = 0;
+        if((heartProps.x + heartProps.w) > canvas.width) heartProps.x = (canvas.width - heartProps.w);
+        if((heartProps.y + heartProps.h) > canvas.height) heartProps.y = (canvas.height - heartProps.h);
         
         drawHeart(heartProps.x, heartProps.y);
     }
 
     if(canvas && ctx) {
         PopCan.play(canvas, ctx);
-        JoiStyk.play(canvas, 80); // this is how to play with JoiStyk
+        JoiStyk.play({
+            canvas: canvas, 
+            padsize: 100, 
+            padcolor: 'rgb(203, 255, 48)', 
+            stickcolor: 'rgb(25, 25, 243)'
+        }); // this is how to play with JoiStyk
         PopCan.drawings(JoiStyk.draw, feedback, Hearty);
     }
 }

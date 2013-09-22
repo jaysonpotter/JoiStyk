@@ -7,7 +7,10 @@
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
 		<link rel="shortcut icon" href="http://projects.jaysonpotter.com/favicon.ico" />
 		<title>JoiStyk - A Smart Canvas Joystick</title>
-		<link rel="stylesheet" href="http://projects.jaysonpotter.com/shared/shared.css" />
+		<script src="_ui/js/PopCan.min.js"></script>
+		<script src="_ui/js/JoiStyk.min.js"></script>
+		<script src="_ui/js/JoiStykDemo.js"></script>
+		<link rel="stylesheet" href="../shared/shared.css" />
 		<style>
 			body,
 			#JoiStyk {
@@ -17,10 +20,10 @@
 				right: 0;
 				bottom: 0;
 			}
+			#JoiStyk {
+    			z-index: 1;
+			}
 		</style>
-		<script src="_ui/js/PopCan.min.js"></script>
-		<script src="_ui/js/JoiStyk.js"></script>
-		<script src="_ui/js/JoiStykDemo.js"></script>
 	</head>
 	<body>
 	
