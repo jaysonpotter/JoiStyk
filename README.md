@@ -34,13 +34,14 @@ And make sure to place the following into your drawing function:
 JoiStyk.draw();
 ```
 
-# JoiStyk Options
+## JoiStyk Options
+The color values you can use are the same as in CSS: hex codes, rgb(), rgba(), and hsla()
 
 ```javascript
 JoiStyk.play({
-	canvas: canvas,        // required
-	padsize: 100,	       // optional
-	padcolor: 'rgba()',    // optional
-	stickcolor: 'rgba()'   // optional
+	canvas: canvas,                     // required
+	padsize: 100,	                    // optional
+	padcolor: 'rgba(0,0,0,0.5)',        // optional
+	stickcolor: 'rgba(255,255,255,1)'   // optional
 });
 ```
