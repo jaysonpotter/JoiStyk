@@ -1,10 +1,6 @@
 (function(JoiStyk) {
     'use strict';
 
-    // Add support for dual joysticks
-    // Add support for custom image
-    // Add support for stationary joystick vs the amazing dynamic fantasticaliciousness it is today
-
     var touchable = typeof (document.ontouchend) !== "undefined",
         touches = [],
         touchChange = [],
@@ -42,7 +38,6 @@
         var rect = canvas.getBoundingClientRect();
         if (touchable) {
             return {
-                // this only tracks a single touch
                 x: evt.targetTouches[0].clientX - rect.left,
                 y: evt.targetTouches[0].clientY - rect.top
             };
@@ -70,7 +65,14 @@
         ctx.fill();
     }
 
-    function trackTouch() { // rename this to something that makes sense like JoiPad
+    function calcDist(pointOne, pointTwo){
+        var distX = pointOne.x - pointTwo.x,                           // x axis diff
+            distY = pointOne.y - pointTwo.y,                           // y axis diff 
+            dist = Math.round(Math.sqrt( distX*distX + distY*distY )); // pythagorean theorem, shave the decimal
+        return dist;
+    }
+
+    function followPad() {
         if ((stickPos.x - stickRad) < (padPos.x - padRad)) {
             padPos.x = (stickPos.x + stickRad);
         }
@@ -83,6 +85,7 @@
         if ((stickPos.y + stickRad) > (padPos.y + padRad)) {
             padPos.y = (stickPos.y - stickRad);
         }
+        
     }
     
     function JoiStykStart(evt) {
@@ -122,6 +125,9 @@
     JoiStyk.debug = {
         showOptions: function(){
             return option;
+        },
+        showDistance: function(){
+            calcDist(stickPos, padPos);
         }
     }
 
@@ -140,7 +146,7 @@
     JoiStyk.draw = function () {
 
         if (padPos && stickPos) {
-            trackTouch();
+            followPad();
             drawJSPad();
             drawJSStick();
 

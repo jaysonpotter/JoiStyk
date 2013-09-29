@@ -1,9 +1,18 @@
 window.onload = function () {
     
     var canvas = document.getElementById('JoiStyk'),
-        ctx = canvas.getContext('2d');
+        ctx = canvas.getContext('2d'),
+        baseHeight,
+        baseWidth,
+        delayThis = (function () {
+			var timer = 0;
+
+			return function (callback, ms) {
+				clearTimeout(timer);
+				timer = setTimeout(callback, ms || 2000);
+			};
+		}());
         
-    // START DEMO CONTENT
     var heartProps = {} || heartProps;
         heartProps.x = 135;
         heartProps.y = 100;
@@ -57,8 +66,8 @@ window.onload = function () {
         // messy gross, it's a demo Mkkkrrr
         if(heartProps.x < 0) heartProps.x = 0;
         if(heartProps.y < 0) heartProps.y = 0;
-        if((heartProps.x + heartProps.w) > canvas.width) heartProps.x = (canvas.width - heartProps.w);
-        if((heartProps.y + heartProps.h) > canvas.height) heartProps.y = (canvas.height - heartProps.h);
+        if((heartProps.x + heartProps.w) > baseWidth) heartProps.x = (baseWidth - heartProps.w);
+        if((heartProps.y + heartProps.h) > baseHeight) heartProps.y = (baseHeight - heartProps.h);
         
         drawHeart(heartProps.x, heartProps.y);
     }
@@ -67,10 +76,24 @@ window.onload = function () {
         PopCan.play(canvas, ctx);
         JoiStyk.play({
             canvas: canvas, 
-            padsize: 100, 
+            padsize: 80, 
             padcolor: 'rgb(203, 255, 48)', 
             stickcolor: 'rgb(25, 25, 243)'
         }); // this is how to play with JoiStyk
         PopCan.drawings(JoiStyk.draw, feedback, Hearty);
+        
+        baseHeight = PopCan.gimmie.baseheight();
+        baseWidth = PopCan.gimmie.basewidth();
+
     }
+    
+    var doThis = function(){
+    	baseHeight = PopCan.gimmie.baseheight();
+        baseWidth = PopCan.gimmie.basewidth();
+    }
+    
+    window.addEventListener("resize", function() {
+    	delayThis(doThis, 100);
+    }, false);
+    
 }
