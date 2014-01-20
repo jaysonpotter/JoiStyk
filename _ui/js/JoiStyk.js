@@ -129,7 +129,7 @@
         showDistance: function(){
             calcDist(stickPos, padPos);
         }
-    }
+    };
 
     JoiStyk.play = function (options) {
         option = options;
@@ -141,7 +141,7 @@
         canvas.addEventListener(tapMove, JoiStykMove, false);
         canvas.addEventListener(tap, JoiStykStart, false);
         canvas.addEventListener(tapEnd, JoiStykEnd, false);
-    }
+    };
 
     JoiStyk.draw = function () {
 
@@ -156,6 +156,6 @@
             JoiStyk.x = 0;
             JoiStyk.y = 0;
         }
-    }
+    };
 
 }(window.JoiStyk = window.JoiStyk || {}));
